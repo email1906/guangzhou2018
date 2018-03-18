@@ -1,8 +1,16 @@
+// 导入默认初始化样式
+import 'normalize.css';
+// 导入自己写的全局样式
+import './less/index.less';
+
 // 1.1 导入第三方包
 import Vue from "vue";
 import VueRouter from "vue-router";
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 // 1.2 启动vue插件
 Vue.use(VueRouter);
+Vue.use(ElementUI);
 
 // 2.1 导入自己写的东西
 import App from "./component/App.vue";
