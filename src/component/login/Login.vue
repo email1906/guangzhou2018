@@ -43,8 +43,17 @@ export default {
       },
       // 表单校验规则
       rules: {
-        uname: [{ validator: unameFn, trigger: "blur" }],
-        upwd: [{ validator: upwdFn, trigger: "blur" }]
+        uname: [
+          { required: true, message: "请填写账号", trigger: "blur" },
+          { min: 5, max: 18, message: "账号在6~18位", trigger: "blur" },
+          { validator: unameFn, trigger: "blur" }
+        ],
+        upwd: [
+          { validator: upwdFn, trigger: "blur" },
+          { pattern: /^\w{6,18}$/, message: "密码在6~18位", trigger: "blur" }
+        ]
+        // uname: [{ validator: unameFn, trigger: "blur" }],
+        // upwd: [{ validator: upwdFn, trigger: "blur" }]
       }
     };
   },
@@ -62,15 +71,18 @@ export default {
     login() {
       this.$http.post(this.$api.login, this.formLabelAlign).then(res => {
         if (res.data.status == 0) {
-          this.$alert("登录成功,马上跳转到首页");
-        }else{
+          this.$router.push({ name: "admin" });
+        } else {
           this.$alert(res.data.message);
         }
       });
     },
     submitForm(formName) {
+      // 通过ref引用得到form表单元素,然后调用validate方法去校验全部字段
+      // 全部字段都通过校验,name回调收到的值为true,否则为false
       this.$refs[formName].validate(valid => {
         if (valid) {
+          // 全部都通过校验才登录
           this.login();
         } else {
           this.$alert("请重新输入!");
