@@ -23,6 +23,7 @@ import axios from 'axios';
 axios.defaults.baseURL = "http://157.122.54.189:9095";// 一配置以后所有的请求就会自动使用这个域名
 axios.defaults.withCredentials=true;// 浏览器有个安全机制,如果是跨域请求,浏览器是不会把本地cookie信息携带过去的
 Vue.prototype.$http = axios;
+
 // 4 导入api配置对象,为了使用更加方便,也把它导入到原型中
 import api from "./js/api-config.js";
 Vue.prototype.$api = api;
